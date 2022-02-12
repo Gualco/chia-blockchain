@@ -2,7 +2,7 @@
 pauseFile=/home/$(whoami)/final/pause
 logPathFile=/home/$(whoami)/plot.log
 
-printingDevice="/dev/sda1 "
+printingDevice="/dev/md0 "
 
 Pool_Contract_Address="xch19q55klhyk60anylsqfwyxudzdvafntcn3ltefed5cnnfnxatk5xsp4hmzf"
 pca=$Pool_Contract_Address
@@ -30,7 +30,7 @@ if [ ${1+x} ] && [ ${2+x} ] && [ ${3+x} ]; then
             echo "delete Plots $(ls $tmp2 | wc -l) tmp files" | tee -a $logPathFile
             rm -rf $tmp2/*
 
-            availSpace=$(df | grep $printingDevice | sed -E 's/\ {2,}/\ /g' | cut -d ' ' -f4 | head 1)
+            availSpace=$(df | grep $printingDevice | sed -E 's/\ {2,}/\ /g' | cut -d ' ' -f4 | head -1)
             df -h | grep $printingDevice | tee -a $logPathFile
 
             if [[ $availSpace -gt 481408204 ]]; then
